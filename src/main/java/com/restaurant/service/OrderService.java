@@ -4,5 +4,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class OrderService {
-    // TODO: Inject repositories and implement placeOrder, cancelOrder, updateStatus methods
+    // TODO: Inject UserRepository and implement register, findByEmail methods
 }
