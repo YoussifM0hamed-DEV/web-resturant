@@ -6,3 +6,4 @@ import org.springframework.stereotype.Controller;
 public class MenuController {
     // TODO: Add / and /menu GET endpoints
 }
+

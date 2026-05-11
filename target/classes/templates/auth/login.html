@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
  <meta charset="UTF-8"/>
  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -58,7 +59,7 @@
  <span >Success</span>
  </div>
 
- <form action="#" method="post">
+ <form th:action="@{/login}" method="post">
  <div class="mb-3">
  <label class="form-label">Email Address</label>
  <div class="input-group">

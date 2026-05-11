@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
  <meta charset="UTF-8"/>
  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -47,26 +47,26 @@
  <span >Error</span>
  </div>
 
- <form action="#" method="post">
+ <form th:object="${user}" th:action="@{/register}" method="post">
  <div class="mb-3">
  <label class="form-label">Full Name</label>
  <div class="input-group">
  <span class="input-group-text"><i class="bi bi-person"></i></span>
- <input type="text" class="form-control" placeholder="John Doe" required style="border-radius:0 10px 10px 0;"/>
+ <input type="text" th:field="*{name}" class="form-control" placeholder="John Doe" required style="border-radius:0 10px 10px 0;"/>
  </div>
  </div>
  <div class="mb-3">
  <label class="form-label">Email Address</label>
  <div class="input-group">
  <span class="input-group-text"><i class="bi bi-envelope"></i></span>
- <input type="email" class="form-control" placeholder="you@example.com" required style="border-radius:0 10px 10px 0;"/>
+ <input type="email" th:field="*{email}" class="form-control" placeholder="you@example.com" required style="border-radius:0 10px 10px 0;"/>
  </div>
  </div>
  <div class="mb-4">
  <label class="form-label">Password</label>
  <div class="input-group">
  <span class="input-group-text"><i class="bi bi-lock"></i></span>
- <input type="password" class="form-control" placeholder="Minimum 6 characters" required minlength="6" style="border-radius:0 10px 10px 0;"/>
+ <input type="password" th:field="*{password}" class="form-control" placeholder="Minimum 6 characters" required minlength="6" style="border-radius:0 10px 10px 0;"/>
  </div>
  </div>
  <button type="submit" class="btn btn-primary w-100 mb-3">
@@ -76,7 +76,7 @@
 
  <hr class="divider"/>
  <p class="footer-link text-center mb-0">
- Already have an account? <a href="#">Sign In</a>
+ Already have an account? <a th:href="@{/login}">Sign In</a>
  </p>
  </div>
  </div>
