@@ -24,8 +24,9 @@ public class AuthController {
         model.addAttribute("user" , new User());
         return "auth/register";
     }
-     
     
+
+     
     @PostMapping("/register")
     public String register(@ModelAttribute User user, RedirectAttributes ra) {
         try {
