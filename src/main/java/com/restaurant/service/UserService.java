@@ -1,13 +1,12 @@
 package com.restaurant.service;
 
-import com.restaurant.model.User;
-import com.restaurant.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.restaurant.model.User;
+import com.restaurant.repository.UserRepository;
+
 @Service
-@RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;

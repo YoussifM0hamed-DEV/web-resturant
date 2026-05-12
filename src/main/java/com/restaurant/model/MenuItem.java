@@ -3,15 +3,11 @@ package com.restaurant.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
 import jakarta.persistence.Id;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "menu_items")
-@Data
-@NoArgsConstructor
 public class MenuItem {
 
     @Id
@@ -23,6 +19,9 @@ public class MenuItem {
     private String description;
     private double price;
     private boolean available = true;
+
+    public MenuItem() {
+    }
 
     public Long getId() {
         return id;
