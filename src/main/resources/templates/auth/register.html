@@ -158,7 +158,7 @@
                     <span th:text="${param.error} ?: 'Registration failed'">Error</span>
                 </div>
 
-                <form th:object="${user}" th:action="@{/register}" method="post">
+                <form th:object="${registerDTO}" th:action="@{/register}" method="post">
                     <div class="mb-3">
                         <label class="form-label">Full Name</label>
                         <div class="input-group">
@@ -166,6 +166,7 @@
                             <input type="text" th:field="*{username}" class="form-control" placeholder="John Doe"
                                 required style="border-radius:0 10px 10px 0;" />
                         </div>
+                        <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger small mt-1"></div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Email Address</label>
@@ -174,6 +175,7 @@
                             <input type="email" th:field="*{email}" class="form-control" placeholder="you@example.com"
                                 required style="border-radius:0 10px 10px 0;" />
                         </div>
+                        <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger small mt-1"></div>
                     </div>
                     <div class="mb-4">
                         <label class="form-label">Password</label>
@@ -183,6 +185,7 @@
                                 placeholder="Minimum 6 characters" required minlength="6"
                                 style="border-radius:0 10px 10px 0;" />
                         </div>
+                        <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger small mt-1"></div>
                     </div>
                     <button type="submit" class="btn btn-primary w-100 mb-3">
                         <i class="bi bi-person-plus me-2"></i>Create My Account
