@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
  <meta charset="UTF-8"/>
  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -66,27 +66,27 @@
  <h1 class="topbar-title"><i class="bi bi-speedometer2 me-2" style="color:#e8b86d;"></i>Dashboard</h1>
  <div class="d-flex align-items-center gap-3">
  <span style="font-size:0.85rem;color:#888;"><i class="bi bi-circle-fill me-1" style="color:#28a745;font-size:0.6rem;"></i>System Online</span>
- <form action="#" method="post">
+ <form th:action="@{/logout}" method="post">
  <button type="submit" class="btn-logout"><i class="bi bi-box-arrow-right me-1"></i>Logout</button>
  </form>
  </div>
  </div>
 
- <div class="alert alert-success border-0 rounded-3 mb-3" ></div>
+ <div th:if="${success}" class="alert alert-success border-0 rounded-3 mb-3" th:text="${success}"></div>
 
  <!-- Stats -->
  <div class="row g-3 mb-4">
  <div class="col-sm-6 col-xl-3">
  <div class="stat-card">
  <div class="stat-icon" style="background:rgba(232,184,109,0.12);color:#c9942e;"><i class="bi bi-receipt"></i></div>
- <div class="stat-value" >0</div>
+ <div class="stat-value" th:text="${totalOrders}">0</div>
  <div class="stat-label">Total Orders</div>
  </div>
  </div>
  <div class="col-sm-6 col-xl-3">
  <div class="stat-card">
  <div class="stat-icon" style="background:rgba(13,202,240,0.12);color:#0dcaf0;"><i class="bi bi-grid"></i></div>
- <div class="stat-value" >0</div>
+ <div class="stat-value" th:text="${totalItems}">0</div>
  <div class="stat-label">Menu Items</div>
  </div>
  </div>
@@ -110,15 +110,15 @@
  </tr>
  </thead>
  <tbody>
- <tr>
- <td><strong ></strong></td>
+ <tr th:each="order : ${recentOrders}">
+ <td><strong th:text="'#' + ${order.id}"></strong></td>
  <td>
- <div ></div>
- <div style="font-size:0.75rem;color:#aaa;" ></div>
+ <div th:text="${order.user.username}"></div>
+ <div style="font-size:0.75rem;color:#aaa;" th:text="${order.user.email}"></div>
  </td>
- <td><strong style="color:#c9942e;" ></strong></td>
- <td><span ></span></td>
- <td style="color:#999;" ></td>
+ <td><strong style="color:#c9942e;" th:text="'$' + ${#numbers.formatDecimal(order.total, 1, 2)}"></strong></td>
+ <td><span th:class="'status-badge status-' + ${order.status.name().toLowerCase()}" th:text="${order.status}"></span></td>
+ <td style="color:#999;" th:text="${#temporals.format(order.createdAt, 'MMM dd, yyyy')}"></td>
  </tr>
  </tbody>
  </table>
