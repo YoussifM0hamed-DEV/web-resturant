@@ -1,12 +1,17 @@
 package com.restaurant.model;
 
-import jakarta.persistence.*;
-import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "order_items")
-@NoArgsConstructor
 public class OrderItem {
 
     @Id
@@ -23,6 +28,9 @@ public class OrderItem {
 
     private int quantity;
     private BigDecimal unitPrice;
+
+    public OrderItem() {
+    }
 
     public Long getId() {
         return id;

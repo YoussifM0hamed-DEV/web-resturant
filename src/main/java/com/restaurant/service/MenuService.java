@@ -1,21 +1,21 @@
 package com.restaurant.service;
 
-import com.restaurant.model.MenuItem;
-import com.restaurant.repository.MenuItemRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Service;
+
+import com.restaurant.model.MenuItem;
+import com.restaurant.repository.MenuItemRepository;
+
 @Service
-@RequiredArgsConstructor
 public class MenuService {
 
     private final MenuItemRepository menuItemRepository;
 
-    public MenuService() {
-        this.menuItemRepository = null;
+    public MenuService(MenuItemRepository menuItemRepository) {
+        this.menuItemRepository = menuItemRepository;
     }
 
     public List<MenuItem> getAll() {
