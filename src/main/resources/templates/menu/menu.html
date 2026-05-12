@@ -1,123 +1,313 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
- <meta charset="UTF-8"/>
- <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
- <title>Our Menu – Saveur</title>
- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
- <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
- <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet"/>
- <style>
- body { font-family: 'DM Sans', sans-serif; background: #f8f5f0; }
- .navbar { background: #1a1a1a !important; padding: 1rem 2rem; box-shadow: 0 2px 20px rgba(0,0,0,0.3); }
- .navbar-brand { font-family: 'Playfair Display', serif; color: #e8b86d !important; font-size: 1.6rem; font-weight: 700; }
- .nav-link { color: #ccc !important; font-weight: 500; transition: color 0.2s; }
- .nav-link:hover { color: #e8b86d !important; }
- .btn-gold { background: linear-gradient(135deg, #e8b86d, #c9942e); color: #000; border: none; border-radius: 8px; font-weight: 600; padding: 0.45rem 1.1rem; }
- .btn-gold:hover { background: linear-gradient(135deg, #f0c97e, #d9a43e); color: #000; transform: translateY(-1px); }
- .btn-outline-gold { border: 1px solid #e8b86d; color: #e8b86d; border-radius: 8px; font-weight: 500; padding: 0.4rem 1rem; background: transparent; }
- .btn-outline-gold:hover { background: #e8b86d; color: #000; }
- .hero { background: linear-gradient(135deg, #1a0a00 0%, #3d1f00 50%, #1a0a00 100%); padding: 5rem 2rem; color: white; position: relative; overflow: hidden; }
- .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e8b86d' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
- .hero h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 1rem; }
- .hero p { font-size: 1.15rem; opacity: 0.8; max-width: 500px; margin: 0 auto 2rem; }
- .gold-text { color: #e8b86d; }
- .category-pill { border: 1px solid #dee2e6; background: white; color: #555; border-radius: 50px; padding: 0.45rem 1.2rem; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.2s; }
- .category-pill:hover, .category-pill.active { background: #1a1a1a; color: #e8b86d; border-color: #1a1a1a; }
- .section-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: #1a1a1a; border-left: 4px solid #e8b86d; padding-left: 1rem; margin-bottom: 1.5rem; }
- .menu-card { border: none; border-radius: 16px; box-shadow: 0 2px 15px rgba(0,0,0,0.08); transition: all 0.3s; background: white; overflow: hidden; height: 100%; }
- .menu-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
- .menu-card-img { height: 120px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; }
- .cat-starters { background: linear-gradient(135deg, #fff8e1, #fff3cd); }
- .cat-main { background: linear-gradient(135deg, #fce4ec, #f8d7da); }
- .cat-desserts { background: linear-gradient(135deg, #e8f5e9, #d4edda); }
- .cat-drinks { background: linear-gradient(135deg, #e3f2fd, #cfe2ff); }
- .cat-default { background: linear-gradient(135deg, #f3e5f5, #e2d9f3); }
- .card-title { font-weight: 600; font-size: 1rem; color: #1a1a1a; }
- .card-text { font-size: 0.82rem; color: #777; line-height: 1.5; }
- .price-tag { background: linear-gradient(135deg, #e8b86d, #c9942e); color: #000; border-radius: 8px; padding: 0.3rem 0.7rem; font-weight: 700; font-size: 0.9rem; }
- .badge-available { background: rgba(25,135,84,0.1); color: #198754; border: 1px solid rgba(25,135,84,0.2); border-radius: 20px; padding: 0.2rem 0.6rem; font-size: 0.75rem; }
- footer { background: #1a1a1a; color: #888; padding: 2rem; margin-top: 4rem; }
- .footer-brand { font-family: 'Playfair Display', serif; color: #e8b86d; font-size: 1.3rem; }
- </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Menu – Saveur</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@400;500&display=swap"
+        rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #f8f5f0;
+        }
+
+        .navbar {
+            background: #1a1a1a !important;
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            color: #e8b86d !important;
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        .nav-link {
+            color: #ccc !important;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: #e8b86d !important;
+        }
+
+        .btn-logout {
+            background: linear-gradient(135deg, #e8b86d, #c9942e);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            padding: 0.45rem 1rem;
+        }
+
+        .btn-logout:hover {
+            background: linear-gradient(135deg, #f0c97e, #d9a43e);
+            color: #000;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #1a0a00 0%, #3d1f00 50%, #1a0a00 100%);
+            padding: 5rem 2rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e8b86d' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            opacity: 0.8;
+            max-width: 500px;
+            margin: 0 auto 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .gold-text {
+            color: #e8b86d;
+        }
+
+        .category-pill {
+            border: 1px solid #dee2e6;
+            background: white;
+            color: #555;
+            border-radius: 50px;
+            padding: 0.45rem 1.2rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .category-pill:hover,
+        .category-pill.active {
+            background: #1a1a1a;
+            color: #e8b86d;
+            border-color: #1a1a1a;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #1a1a1a;
+            border-left: 4px solid #e8b86d;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .menu-card {
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+            background: white;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .menu-card-img {
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+        }
+
+        .cat-Starters {
+            background: linear-gradient(135deg, #fff8e1, #fff3cd);
+        }
+
+        .cat-MainCourse {
+            background: linear-gradient(135deg, #fce4ec, #f8d7da);
+        }
+
+        .cat-Desserts {
+            background: linear-gradient(135deg, #e8f5e9, #d4edda);
+        }
+
+        .cat-Beverages {
+            background: linear-gradient(135deg, #e3f2fd, #cfe2ff);
+        }
+
+        .cat-default {
+            background: linear-gradient(135deg, #f3e5f5, #e2d9f3);
+        }
+
+        .card-title {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #1a1a1a;
+        }
+
+        .card-text {
+            font-size: 0.82rem;
+            color: #777;
+            line-height: 1.5;
+        }
+
+        .price-tag {
+            background: linear-gradient(135deg, #e8b86d, #c9942e);
+            color: #000;
+            border-radius: 8px;
+            padding: 0.3rem 0.7rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .badge-available {
+            background: rgba(25, 135, 84, 0.1);
+            color: #198754;
+            border: 1px solid rgba(25, 135, 84, 0.2);
+            border-radius: 20px;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.75rem;
+        }
+
+        .btn-add-order {
+            background: linear-gradient(135deg, #e8b86d, #c9942e);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            padding: 0.4rem 0.9rem;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .btn-add-order:hover {
+            background: linear-gradient(135deg, #f0c97e, #d9a43e);
+            color: #000;
+            transform: translateY(-1px);
+        }
+
+        footer {
+            background: #1a1a1a;
+            color: #888;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-brand {
+            font-family: 'Playfair Display', serif;
+            color: #e8b86d;
+            font-size: 1.3rem;
+        }
+    </style>
 </head>
+
 <body>
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg">
- <div class="container">
- <a class="navbar-brand" href="/menu">🍽 Saveur</a>
- <button class="navbar-toggler border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
- <span class="navbar-toggler-icon" style="filter:invert(1)"></span>
- </button>
- <div class="collapse navbar-collapse" id="navbarNav">
- <ul class="navbar-nav me-auto ms-3">
- <li class="nav-item"><a class="nav-link" href="/menu"><i class="bi bi-grid me-1"></i>Menu</a></li>
- Order Now</a>
- </li>
- My Orders</a>
- </li>
- Admin</a>
- </li>
- </ul>
- <div class="d-flex gap-2">
- 
- 
- Logout</button>
- </form>
- </div>
- </div>
- </div>
-</nav>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="/menu"><i class="bi bi-shop me-2"></i>🍽 Saveur</a>
+            <button class="navbar-toggler border-secondary" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon" style="filter:invert(1)"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto ms-3">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/menu"><i class="bi bi-grid me-1"></i>Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/order/new"><i class="bi bi-plus-circle me-1"></i>Order Now</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/order"><i class="bi bi-bag-check me-1"></i>My Orders</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                        <a class="nav-link" href="/admin/dashboard"><i class="bi bi-shield-lock me-1"></i>Admin</a>
+                    </li>
+                </ul>
+                <div class="d-flex gap-2 align-items-center">
+                    <form th:action="@{/logout}" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-logout btn-sm">
+                            <i class="bi bi-box-arrow-right me-1"></i>Logout
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-<!-- Hero -->
-<div class="hero text-center">
- <div class="container position-relative">
- <p class="gold-text mb-2" style="font-size:0.9rem;letter-spacing:3px;text-transform:uppercase;">Welcome to Saveur</p>
- <h1>Experience <span class="gold-text">Fine Dining</span><br/>Like Never Before</h1>
- <p>Explore our carefully crafted menu featuring the finest ingredients and exceptional flavors</p>
- Get Started
+    <!-- Hero -->
+    <div class="hero text-center">
+        <div class="container position-relative">
+            <p class="gold-text mb-2" style="font-size:0.9rem;letter-spacing:3px;text-transform:uppercase;">Welcome to
+                Saveur</p>
+            <h1>Experience <span class="gold-text">Fine Dining</span><br />Like Never Before</h1>
+            <p>Explore our carefully crafted menu featuring the finest ingredients and exceptional flavors</p>
+            <a href="#menu-content" class="btn btn-gold me-2">Browse Menu</a>
+            <a href="/order/new" class="btn btn-outline-gold">Place an Order</a>
+        </div>
+    </div>
+
+    <!-- Menu Content -->
+    <div class="container my-5" id="menu-content">
+
+        <!-- Menu Sections -->
+        <div th:each="category, stat : ${menuByCategory}" class="menu-section mb-5">
+            <h2 class="section-title"><i class="bi bi-star-fill" style="color:#e8b86d;"></i> <span
+                    th:text="${category.key}">Category</span></h2>
+
+            <div class="row g-4" th:if="${!category.value.isEmpty()}">
+                <div class="col-sm-6 col-lg-4 col-xl-3" th:each="item : ${category.value}">
+                    <div class="menu-card card">
+                        <div th:class="'menu-card-img cat-' + ${category.key}">
+                            <span>🍴</span>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title mb-1" th:text="${item.name}">Item Name</h5>
+                            <p class="card-text mb-2" th:text="${item.description}">Description</p>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="price-tag" th:text="'$' + ${#numbers.formatDecimal(item.price, 1, 2)}">$0.00</span>
+ <span class="badge-available" th:if="${item.available}"><i class="bi bi-check-circle me-1"></i>Available</span>
+ </div>
+ <a href="/order/new" class="btn btn-add-order w-100 btn-sm">
+ <i class="bi bi-plus-circle me-1"></i>Add to Order
  </a>
- Place an Order
- </a>
  </div>
-</div>
-
-<!-- Menu Content -->
-<div class="container my-5">
-
- <!-- Category Filter Pills -->
- <div class="d-flex flex-wrap gap-2 mb-5 justify-content-center">
- <button class="category-pill active" data-category="all">
- <i class="bi bi-grid-3x3-gap me-1"></i>All Items
- </button>
- <button
- class="category-pill"
+ </div>
+ </div>
+ </div>
  
- >Category</button>
+ <div th:if="${category.value.isEmpty()}" class="alert alert-info">
+ <i class="bi bi-info-circle me-2"></i>No items available in this category.
+ </div>
  </div>
 
- <!-- Menu Sections -->
- <div class="menu-section mb-5">
- <h2 class="section-title" >Category</h2>
- <div class="row g-4">
- <div class="col-sm-6 col-lg-4 col-xl-3">
- <div class="menu-card card">
- <div>
- <span >🍴</span>
- </div>
- <div class="card-body">
- <h5 class="card-title mb-1" >Item</h5>
- <p class="card-text mb-3" >Description</p>
- <div class="d-flex justify-content-between align-items-center">
- <span class="price-tag" >$0.00</span>
- <span class="badge-available"><i class="bi bi-check-circle me-1"></i>Available</span>
- </div>
- </div>
- </div>
- </div>
- </div>
- </div>
 </div>
 
 <!-- Footer -->
@@ -129,6 +319,5 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script></script>
 </body>
 </html>
