@@ -242,13 +242,13 @@
                         <a class="nav-link active" href="/menu"><i class="bi bi-grid me-1"></i>Menu</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/order/new"><i class="bi bi-plus-circle me-1"></i>Order Now</a>
+                        <a class="nav-link" href="/orders/new"><i class="bi bi-plus-circle me-1"></i>Order Now</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/order"><i class="bi bi-bag-check me-1"></i>My Orders</a>
+                        <a class="nav-link" href="/orders/my"><i class="bi bi-bag-check me-1"></i>My Orders</a>
                     </li>
                     <li class="nav-item" sec:authorize="hasRole('ADMIN')">
-                        <a class="nav-link" href="/admin/dashboard"><i class="bi bi-shield-lock me-1"></i>Admin</a>
+                        <a class="nav-link" href="/admin"><i class="bi bi-shield-lock me-1"></i>Admin</a>
                     </li>
                 </ul>
                 <div class="d-flex gap-2 align-items-center">
@@ -270,7 +270,7 @@
             <h1>Experience <span class="gold-text">Fine Dining</span><br />Like Never Before</h1>
             <p>Explore our carefully crafted menu featuring the finest ingredients and exceptional flavors</p>
             <a href="#menu-content" class="btn btn-gold me-2">Browse Menu</a>
-            <a href="/order/new" class="btn btn-outline-gold">Place an Order</a>
+            <a href="/orders/new" class="btn btn-outline-gold">Place an Order</a>
         </div>
     </div>
 
@@ -295,7 +295,7 @@
                                 <span class="price-tag" th:text="'$' + ${#numbers.formatDecimal(item.price, 1, 2)}">$0.00</span>
  <span class="badge-available" th:if="${item.available}"><i class="bi bi-check-circle me-1"></i>Available</span>
  </div>
- <a href="/order/new" class="btn btn-add-order w-100 btn-sm">
+ <a href="/orders/new" class="btn btn-add-order w-100 btn-sm">
  <i class="bi bi-plus-circle me-1"></i>Add to Order
  </a>
  </div>
