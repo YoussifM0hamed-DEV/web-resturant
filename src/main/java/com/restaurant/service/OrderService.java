@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,14 +20,18 @@ import com.restaurant.repository.UserRepository;
 @Service
 public class OrderService {
 
+    private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
+
     private final OrderRepository orderRepository;
     private final UserRepository userRepository;
     private final MenuItemRepository menuItemRepository;
+    private final N8nWebhookService n8nWebhookService;
 
-    public OrderService(OrderRepository orderRepository, UserRepository userRepository, MenuItemRepository menuItemRepository) {
+    public OrderService(OrderRepository orderRepository, UserRepository userRepository, MenuItemRepository menuItemRepository, N8nWebhookService n8nWebhookService) {
         this.orderRepository = orderRepository;
         this.userRepository = userRepository;
         this.menuItemRepository = menuItemRepository;
+        this.n8nWebhookService = n8nWebhookService;
     }
 
     @Transactional
@@ -55,7 +61,19 @@ public class OrderService {
         }
 
         order.calculateTotal();
-        return orderRepository.save(order);
+        Order savedOrder = orderRepository.save(order);
+
+        // Send order notification to n8n webhook without interrupting the normal order flow.
+        notifyN8nWebhook(savedOrder);
+        return savedOrder;
+    }
+
+    private void notifyN8nWebhook(Order order) {
+        try {
+            n8nWebhookService.sendOrderNotification(order);
+        } catch (Exception e) {
+            logger.error("Unable to send n8n order notification for order {}", order.getId(), e);
+        }
     }
 
     public List<Order> getOrdersByUser(String email) {
