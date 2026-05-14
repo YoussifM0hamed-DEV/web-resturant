@@ -16,11 +16,13 @@ import com.restaurant.model.OrderItem;
 
 @Service
 public class N8nWebhookService {
-
+   /*إنشاء Logger للكلاس.
+عشان تطبع logs احترافية. */
     private static final Logger logger = LoggerFactory.getLogger(N8nWebhookService.class);
     private final RestClient restClient;
     private final String webhookUrl;
 
+    /*Object لإرسال HTTP requests. */
     public N8nWebhookService(@Value("${n8n.webhook.url}") String webhookUrl) {
         this.restClient = RestClient.create();
         this.webhookUrl = webhookUrl;

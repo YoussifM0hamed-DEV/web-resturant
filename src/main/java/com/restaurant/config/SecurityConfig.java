@@ -19,9 +19,14 @@ public class SecurityConfig {
 
         @Bean
         public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-                http.authorizeHttpRequests(auth -> auth.requestMatchers("/register", "/login", "/css/**", "/js/**", "/h2-console/**").permitAll().requestMatchers("/admin/**").hasRole("ADMIN").anyRequest().authenticated()).formLogin(form -> form.loginPage("/login")
+                http.authorizeHttpRequests(auth -> auth.requestMatchers("/register", "/login", "/css/**", "/js/**", "/h2-console/**").permitAll().requestMatchers("/admin/**").hasRole("ADMIN").anyRequest().authenticated())
+                .formLogin(form -> form.loginPage("/login")
                 .defaultSuccessUrl("/menu", true)
                 .permitAll())
+                .rememberMe(remember -> remember
+                        .key("restaurant-remember-me")
+                        .tokenValiditySeconds(86400)
+                        .rememberMeParameter("remember-me"))
                 .logout(logout -> logout
                 .logoutSuccessUrl("/login?logout")
                 .permitAll())
