@@ -54,7 +54,7 @@
 <nav class="navbar navbar-expand-lg">
  <div class="container">
  <a class="navbar-brand" href="/menu">🍽 Saveur</a>
- <button class="navbar-toggler border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+ <button class="navbar-toggler border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-label="Toggle navigation">
  <span class="navbar-toggler-icon" style="filter:invert(1)"></span>
  </button>
  <div class="collapse navbar-collapse" id="nav">
@@ -111,10 +111,10 @@
  <div class="d-flex align-items-center gap-3">
  <span class="item-price" th:text="'$' + ${#numbers.formatDecimal(item.price, 1, 2)}">$0</span>
  <div class="qty-wrap">
- <button type="button" class="qty-btn minus">−</button>
+ <button type="button" class="qty-btn minus" aria-label="Decrease quantity">−</button>
  <input type="number" th:name="'item_' + ${item.id}"
    class="qty-input" value="0" min="0" max="20" readonly/>
- <button type="button" class="qty-btn plus">+</button>
+ <button type="button" class="qty-btn plus" aria-label="Increase quantity">+</button>
  </div>
  </div>
  </div>
